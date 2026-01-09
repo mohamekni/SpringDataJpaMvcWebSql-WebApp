@@ -1,4 +1,4 @@
-html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,6 +25,28 @@ html lang="en">
         </thead>
         <tbody class="table-group-divider">
 
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.id}"></td>
+            <td th:text="@{${client.firstName} + ' ' + ${client.lastName}}"></td>
+            <td th:text="${client.email}"></td>
+            <td th:text="${client.phone}"></td>
+            <td th:text="${client.address}"></td>
+            <td th:text="${client.status}"></td>
+            <td th:text="${client.createdAt.toString().substring(0, 10)}"></td>
+
+            <td style="white-space:nowrap">
+                <a class="btn btn-primary btn-sm"
+                   th:href="@{/clients/edit(id=${client.id})}">
+                    Edit
+                </a>
+                <a class="btn btn-danger btn-sm"
+                   th:href="@{clients/delete(id=${client.id})}"
+                   onclick="return confirm('Are you sure?')">
+                    Delete
+                </a>
+
+            </td>
+        </tr>
         </tbody>
     </table>
 
